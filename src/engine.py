@@ -8,7 +8,7 @@ FEATURE_COLS = [
 
 
 def create_playlist_profile(df_scaled, playlist_indices):
-    playlist_features =  df_scaled.loc[playlist_features, FEATURE_COLS]
+    playlist_features =  df_scaled.loc[playlist_indices, FEATURE_COLS]
 
     playlist_profile = np.mean(playlist_features, axis=0)
 
