@@ -25,8 +25,31 @@ def get_recommendations(df_original, df_scaled, playlist_indicies, top_k=5):
     scores_filtered = scores.copy()
     scores_filtered[playlist_indicies] = -1
 
-    top_indicies = np.argsort(scores_filtered)[-top_k:][::-1]
 
-    return df_original.iloc[top_indicies]
+    candidate_pool = top_k * 6
+    top_candidate_indicies = np.argsort(scores_filtered)[-candidate_pool:][::-1]
+
+    diverse_indicies = []
+    seen_artists =  set()
+
+    for idx in top_candidate_indicies:
+        artist = df_original.loc[idx, 'artists']
+
+        if artist not in seen_artists:
+            diverse_indicies.append(idx)
+            seen_artists.add(artist)
+
+        if len(diverse_indicies) == top_k:
+            break
+
+
+    if len(diverse_indicies) < top_k:
+        for idx in top_candidate_indicies:
+            if idx not in diverse_indicies:
+                diverse_indicies.append(idx)
+            if len(diverse_indicies) == top_k:
+                break
+
+    return df_original.iloc[diverse_indicies]
 
 
