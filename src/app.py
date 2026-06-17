@@ -22,22 +22,40 @@ def main():
     print("(Tip: If a song isn't found, we'll let you know so you can try another one!)\n")
 
     user_playlist_indices = []
+    user_playlist_weights = []
     songs_needed = 3
 
     while len(user_playlist_indices) < songs_needed:
+        current_count = len(user_playlist_indices) + 1
         song_input = input(f"Enter song name ({len(user_playlist_indices) + 1}/{songs_needed}): ").strip()
 
         matches = df_original[df_original['track_name'].str.lower() ==  song_input.lower()]
 
         if matches.empty:
-            print(f"Couldn't find '{song_input}' in the dataset. Try another song!")
+            print(f"  Couldn't find '{song_input}' in the dataset. Try another song!")
         else:
-            matched_index = matches.index[0]
+            matched_index = int(matches.index.tolist()[0])
             track_title = df_original.loc[matched_index, 'track_name']
             artist_name = df_original.loc[matched_index, 'artists']
             user_playlist_indices.append(matched_index)
             
             print(f"  Found: '{track_title}' by {artist_name}")
+
+            while True:
+                try:
+                    weight_input = input("  Rate your love for this track (1-5): ").strip()
+                    weight = float(weight_input)
+                    
+                    if 1 <= weight <= 5:
+                        break
+                    else:
+                        print("  Please enter a number between 1 and 5.")
+                        
+                except ValueError:
+                    print("  Invalid input. Please enter a valid number.")
+
+            user_playlist_indices.append(matched_index)
+            user_playlist_weights.append(weight)
 
     recommendations = get_recommendations(df_original, df_scaled, user_playlist_indices, top_k=5)
     

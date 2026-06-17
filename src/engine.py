@@ -7,16 +7,19 @@ FEATURE_COLS = [
 ]
 
 
-def create_playlist_profile(df_scaled, playlist_indices):
+def create_playlist_profile(df_scaled, playlist_indices, weights=None):
     playlist_features =  df_scaled.loc[playlist_indices, FEATURE_COLS]
 
-    playlist_profile = np.mean(playlist_features, axis=0)
+    if weights != None:
+        playlist_profile = np.average(playlist_features, axis=0, weights=weights)
+    else:
+        playlist_profile = np.mean(playlist_features, axis=0)
 
     return playlist_profile.values.reshape(1, -1)
 
-def get_recommendations(df_original, df_scaled, playlist_indicies, top_k=5):
+def get_recommendations(df_original, df_scaled, playlist_indicies, weights=None, top_k=5):
 
-    user_profile = create_playlist_profile(df_scaled, playlist_indicies)
+    user_profile = create_playlist_profile(df_scaled, playlist_indicies, weights)
 
     all_features = df_scaled[FEATURE_COLS].values
 
