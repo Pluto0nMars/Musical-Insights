@@ -15,7 +15,7 @@ def create_playlist_profile(df_scaled, playlist_indices, weights=None):
     else:
         playlist_profile = np.mean(playlist_features, axis=0)
 
-    return playlist_profile.values.reshape(1, -1)
+    return playlist_profile.reshape(1, -1)
 
 def get_recommendations(df_original, df_scaled, playlist_indicies, weights=None, top_k=5):
 
