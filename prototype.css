@@ -1,4 +1,3 @@
-/* Core Document Settings */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -7,7 +6,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #0b0f19; /* High-end dark theme background */
+    background-color: #0b0f19;
     color: #f1f5f9;
     min-height: 100vh;
     padding: 4rem 1rem;
@@ -20,7 +19,7 @@ body {
     width: 100%;
 }
 
-/* Header Component */
+
 header {
     text-align: center;
     margin-bottom: 3rem;
@@ -30,11 +29,11 @@ header {
     gap: 0.5rem;
 }
 
-/* Style the Lucide Icon cleanly above the text */
+
 header svg {
     width: 3.5rem;
     height: 3.5rem;
-    color: #38bdf8; /* Vibrant cyan theme color */
+    color: #38bdf8; 
     stroke-width: 1.5;
 }
 
@@ -46,6 +45,8 @@ h1 {
 
 h2{
    text-align: center; 
+
+   margin-bottom: 1.5rem;
 }
 
 .subtitle {
@@ -53,6 +54,14 @@ h2{
     font-size: 1.1rem;
 }
 
+.step-section{
+    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    
+}
 
 .selector-grid{
     display: grid;
@@ -83,4 +92,51 @@ h2{
 .track-card svg{
     width: 2.5rem;
     height: 2.5rem;
+}
+
+/*.slider-container{
+    flex: 1;
+    min-width: 220px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+}*/
+
+.slider-container label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin-bottom: 0;        /* Clear any extra bottom margin pulling it out of line */
+}
+
+
+.btn-submit{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    width: 100%;
+    max-width: 300px;
+    padding: 1.1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-submit svg {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.btn-submit:hover {
+    color: #f1f5f9;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
+    background: linear-gradient(135deg, #0396e6 0%, #047cb3 100%);
 }
