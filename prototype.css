@@ -110,7 +110,7 @@ h2{
     gap: 0.5rem;
     font-size: 0.9rem;
     color: #94a3b8;
-    margin-bottom: 0;        /* Clear any extra bottom margin pulling it out of line */
+    margin-bottom: 0;       
 }
 
 
@@ -139,4 +139,119 @@ h2{
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
     background: linear-gradient(135deg, #0396e6 0%, #047cb3 100%);
+}
+
+.loading-container{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 2rem;
+}
+
+.spinning-icon {
+    width: 3.5rem !important;  
+    height: 3.5rem !important;
+    color: #38bdf8;            
+    
+
+    animation: spin 1.2s linear infinite;
+}
+
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+
+.results-container {
+    margin-top: 2rem;
+    border-top: 1px solid #1e293b; 
+    padding-top: 2.5rem;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+
+.rec-card {
+    background: #141b2d;
+    border: 1px solid #222f47;
+    
+   
+    border-left: 4px solid #38bdf8; 
+    
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.track-name {
+    font-size: 1.15rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.artist-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.artist-wrapper svg {
+    width: 0.9rem !important;
+    height: 0.9rem !important;
+    color: #64748b;
+}
+
+.artist-name {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+
+.genre-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(56, 189, 248, 0.08); 
+    padding: 0.4rem 0.85rem;
+    border-radius: 20px;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.genre-wrapper svg {
+    width: 0.85rem !important;
+    height: 0.85rem !important;
+    color: #38bdf8;
+}
+
+.genre-tag {
+    color: #38bdf8;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
