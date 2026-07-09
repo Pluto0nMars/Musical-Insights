@@ -86,18 +86,18 @@
 
         <section class="step-section">
            <h2> Step 2: Generate Recommendations</h2>
-           <button class="btn-submit">
+           <button class="btn-submit" id="generate-btn">
             <i data-lucide="sparkles"></i>
               Generate Best Vibe Matches
            </button>
         </section>
 
-        <section class="loading-container">
+        <section class="loading-container" id="loader">
             <i data-lucide="disc-3" class="spinning-icon"></i>
             <p>Generating track list...</p>
         </section>
 
-        <section class="results-container">
+        <section class="results-container" id="results">
             <h2>Your Curated Matches</h2>
             
             <div class="results-grid">
@@ -157,7 +157,24 @@
     <script src="https://unpkg.com/lucide@latest"></script>
      <script>
         lucide.createIcons();
-    </script>
 
+        const generateBtn = document.getElementById('generate-btn');
+        const loader = document.getElementById('loader');
+        const results = document.getElementById('results');
+
+
+        generateBtn.addEventListener('click', ()=>{
+          loader.style.display = 'flex';
+
+          results.style.display = 'none';
+
+          setTimeout(()=>{
+            loader.style.display = 'none';
+
+            results.style.display = 'block';
+          },3000)
+
+        });
+    </script>
   </body>
 </html>

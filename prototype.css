@@ -323,3 +323,13 @@ input[type="range"]::-moz-range-thumb {
     height: 0.9rem !important;
     color: #475569;
 }
+
+
+/* Hide the loader and results sections initially when the page loads */
+#loader {
+    display: none;
+}
+
+#results {
+    display: none;
+}
