@@ -163,16 +163,36 @@
         const results = document.getElementById('results');
 
 
-        generateBtn.addEventListener('click', ()=>{
+        generateBtn.addEventListener('click',async ()=>{
           loader.style.display = 'flex';
 
           results.style.display = 'none';
 
-          setTimeout(()=>{
-            loader.style.display = 'none';
+          try {
+            const response = await fetch('http://127.0.0.1:5000/api/recommend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        
+                        tracks: ["Island In The Sun", "Say It Ain't So"],
+                        weights: [5, 4]
+                    })
+                });
 
-            results.style.display = 'block';
-          },3000)
+                const data = await response.json();
+                console.log("Data returned from Flask server:", data);
+
+                
+                loader.style.display = 'none';
+                results.style.display = 'block';
+
+          }catch(error){
+            console.error("Could not connect to Flask:", error);
+            loader.style.display = 'none';
+            alert("Error connecting to Python backend! Is app.py running?");
+          }
 
         });
     </script>

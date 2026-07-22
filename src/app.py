@@ -1,80 +1,89 @@
 import sys
 import os
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from data_processor import load_and_clean_data, normalize_features
 from engine import get_recommendations
 
-def main():
-    current_folder = os.path.dirname(os.path.abspath(__file__))
-    project_root = os.path.dirname(current_folder)
-    data_path =  os.path.join(project_root, 'data', 'dataset.csv')
+app = Flask(__name__)
+CORS(app)
 
-    print("Loading songs for music database")
+current_folder = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_folder)
+data_path = os.path.join(project_root, 'data', 'dataset.csv')
 
-    df_original =  load_and_clean_data(data_path)
-    df_scaled =  normalize_features(df_original)
+print("Loading songs for music database...")
+df_original = load_and_clean_data(data_path)
+df_scaled = normalize_features(df_original)
+print(f"Loaded {len(df_original)} songs successfully!\n")
 
-    print(f"Loaded {len(df_original)} songs successfully!\n")
 
-    print("Let's build a mini-playlist. Type the exact names of 3 songs you like.")
-    print("(Tip: If a song isn't found, we'll let you know so you can try another one!)\n")
 
-    user_playlist_indices = []
-    user_playlist_weights = []
-    songs_needed = 3
-
-    songs_collected = 0
-
-    while songs_collected < songs_needed:
-        
-        display_count = songs_collected + 1
-
-        song_input = input(f"Enter song name ({display_count}/{songs_needed}): ").strip()
-
-        matches = df_original[df_original['track_name'].str.lower() ==  song_input.lower()]
-
-        if matches.empty:
-            print(f"  Couldn't find '{song_input}' in the dataset. Try another song!")
-        else:
-            matched_index = int(matches.index.tolist()[0])
-            track_title = df_original.loc[matched_index, 'track_name']
-            artist_name = df_original.loc[matched_index, 'artists']
-            
-            print(f"  Found: '{track_title}' by {artist_name}")
-            
-
-            while True:
-                try:
-                    weight_input = input("  Rate your love for this track (1-5): ").strip()
-                    weight = float(weight_input)
-                    
-                    if 1 <= weight <= 5:
-                        break
-                    else:
-                        print("  Please enter a number between 1 and 5.")
-                        
-                except ValueError:
-                    print("  Invalid input. Please enter a valid number.")
-                       
-            user_playlist_indices.append(matched_index)
-            user_playlist_weights.append(weight)
-
-            songs_collected += 1
-
-           
-    recommendations = get_recommendations(df_original, df_scaled, user_playlist_indices, top_k=5)
+def format_duration(ms):
+    try:
+        total_seconds = int(ms) // 1000
+        minutes = total_seconds // 60
+        seconds = total_seconds % 60
+        return f"{minutes}:{seconds:02d}"
+    except (ValueError, TypeError):
+        return "3:45"  
     
+@app.route('/api/recommend', methods=['POST'])
+def recommend():
+    try:
+        data = request.get_json()
+        print("Received request from web app:", data)
 
-    print("\n HERE ARE YOUR 5 RECOMMENDATIONS: ")
+        selected_tracks = data.get('tracks',[])
+        selected_weights = data.get('weights', [3,3,3])
 
-    print("=" * 60)
+        user_playlist_indices = []
+        user_playlist_weights = []
 
-    for idx, row in recommendations.iterrows():
-        print(f" '{row['track_name']}' - By: {row['artists']} [{row['track_genre']}] ")
+        for idx, track_name in enumerate(selected_tracks):
+            matches = df_original[df_original['track_name'].str.lower() == track_name.lower()]
 
-    print("=" * 60)
+            if not matches.empty:
+                matched_index = int(matches.index.tolist()[0])
+                user_playlist_indices.append(matched_index)
+
+                weight = selected_weights[idx] if idx < len(selected_weights) else 3
+                user_playlist_weights.append(weight)
+
+        if not user_playlist_indices:
+            return jsonify({
+                "success": False, 
+                "message": "None of the selected tracks were found in the database."
+            }),400
+        
+        recommendations = get_recommendations(
+            df_original,
+            df_scaled,
+            user_playlist_indices,
+            top_k=5
+        )
+
+        results = []
+        for _, row in recommendations.iterrows():
+
+            raw_duration_ms = row.get('duration_ms', 0)
+
+            results.append({
+                "title": row.get('track_name', 'Unknown Title'),
+                "artist": row.get('artists', 'Unknown Artist'),
+                "album": row.get('album_name', 'Single'),
+                "duration": format_duration(raw_duration_ms),
+                "genre": row.get('track_genre', 'General')
+            })
+        return jsonify({"success":True, "results": results})
+    
+    except Exception as e:
+        print("Error during recommendation:", e)
+        return jsonify({"success": False, "error": str(e)}), 500
+
 
 if __name__ == "__main__":
-    main()
+    app.run(debug=True, port=5000)
