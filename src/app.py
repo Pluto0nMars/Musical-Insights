@@ -1,5 +1,6 @@
 import sys
 import os
+import numpy as np
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -59,10 +60,13 @@ def recommend():
                 "message": "None of the selected tracks were found in the database."
             }),400
         
+        # weights_array = np.array(user_playlist_weights)
+
         recommendations = get_recommendations(
             df_original,
             df_scaled,
             user_playlist_indices,
+            weights=user_playlist_weights,
             top_k=5
         )
 
