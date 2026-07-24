@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-   
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Musical Insights Recommendation Engine</title>
     <link rel="stylesheet" href="prototype.css">
@@ -11,190 +10,202 @@
     <div class="app-container">
       <header>
         <i data-lucide="music-4"></i>
-        <h1>Musical Insights AI</h1>
-        <p class="subtitle"> UI prototype</p>
+        <h1>Musical Insights</h1>
+        <p class="subtitle">UI prototype</p>
       </header>
       
       <section class="step-section">
-          <h2> Step 1: Define your song Profile</h2>
+        <h2>Step 1: Define your song Profile</h2>
 
-          <div class="selector-grid">
-            <div class="track-card">
-              <i data-lucide="disc-3"></i>
-              <h3>Track 1</h3>
+        <div class="selector-grid">
+          <div class="track-card">
+            <i data-lucide="disc-3"></i>
+            <h3>Track 1</h3>
 
-              <select>
-                <option>Choose a song...</option>
-                <option>I'll Be Back! - By: Rilès</option>
-                <option>Island In The Sun - By: Weezer</option>
-              </select>
+            <select class="track-select">
+              <option value="">Choose a song...</option>
+              <option value="I'll Be Back!">I'll Be Back! - By: Rilès</option>
+              <option value="Island In The Sun" selected>Island In The Sun - By: Weezer</option>
+            </select>
 
-              <div class="slider-container">
-
-                <label>
-                  <i data-lucide="sliders-horizontal"></i>
-                    Love Rating: <span class="weight-val">3</span>
-                </label>
-                <input type="range" min="1" max="5" value="3">
-              </div>
-
-            </div>
-
-            <div class="track-card">
-              <i data-lucide="disc-3"></i>
-              <h3>Track 2</h3>
-
-              <select>
-                <option>Choose a song...</option>
-                <option>I'll Be Back! - By: Rilès</option>
-                <option>Island In The Sun - By: Weezer</option>
-              </select>
-
-              <div class="slider-container">
-
-                <label>
-                  <i data-lucide="sliders-horizontal"></i>
-                    Love Rating: <span class="weight-val">3</span>
-                </label>
-                <input type="range" min="1" max="5" value="3">
-              </div>
-
-            </div>
-
-            <div class="track-card">
-              <i data-lucide="disc-3"></i>
-              <h3>Track 3</h3>
-
-              <select>
-                <option>Choose a song...</option>
-                <option>I'll Be Back! - By: Rilès</option>
-                <option>Island In The Sun - By: Weezer</option>
-              </select>
-
-              <div class="slider-container">
-
-                <label>
-                  <i data-lucide="sliders-horizontal"></i>
-                    Love Rating: <span class="weight-val">3</span>
-                </label>
-                <input type="range" min="1" max="5" value="3">
-              </div>
+            <div class="slider-container">
+              <label>
+                <i data-lucide="sliders-horizontal"></i>
+                Love Rating: <span class="weight-val">5</span>
+              </label>
+              <input type="range" class="track-weight" min="1" max="5" value="5">
             </div>
           </div>
-          
-        </section>
 
-        <section class="step-section">
-           <h2> Step 2: Generate Recommendations</h2>
-           <button class="btn-submit" id="generate-btn">
-            <i data-lucide="sparkles"></i>
-              Generate Best Vibe Matches
-           </button>
-        </section>
+          <div class="track-card">
+            <i data-lucide="disc-3"></i>
+            <h3>Track 2</h3>
 
-        <section class="loading-container" id="loader">
-            <i data-lucide="disc-3" class="spinning-icon"></i>
-            <p>Generating track list...</p>
-        </section>
+            <select class="track-select">
+              <option value="">Choose a song...</option>
+              <option value="Say It Ain't So" selected>Say It Ain't So - By: Weezer</option>
+              <option value="Island In The Sun">Island In The Sun - By: Weezer</option>
+            </select>
 
-        <section class="results-container" id="results">
-            <h2>Your Curated Matches</h2>
-            
-            <div class="results-grid">
-                <div class="rec-card">
-                    <div class="track-info">
-                        <strong class="track-name">Say It Ain't So</strong>
-                        
-                        <div class="meta-row">
-                            <span class="artist-name">
-                                <i data-lucide="user"></i> Weezer
-                            </span>
-                            <span class="album-name">
-                                <i data-lucide="library"></i> Blue Album
-                            </span>
-                            <span class="duration-text">
-                                <i data-lucide="clock"></i> 4:18
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="genre-wrapper">
-                        <i data-lucide="tag"></i>
-                        <span class="genre-tag">Alternative</span>
-                    </div>
-                </div>
-
-                <div class="rec-card">
-                    <div class="track-info">
-                        <strong class="track-name">In the Garage</strong>
-                        
-                        <div class="meta-row">
-                            <span class="artist-name">
-                                <i data-lucide="user"></i> Weezer
-                            </span>
-                            <span class="album-name">
-                                <i data-lucide="library"></i> Blue Album
-                            </span>
-                            <span class="duration-text">
-                                <i data-lucide="clock"></i> 3:55
-                            </span>
-                        </div>
-                    </div>
-                    
-                    <div class="genre-wrapper">
-                        <i data-lucide="tag"></i>
-                        <span class="genre-tag">Rock</span>
-                    </div>
-                </div>
+            <div class="slider-container">
+              <label>
+                <i data-lucide="sliders-horizontal"></i>
+                Love Rating: <span class="weight-val">4</span>
+              </label>
+              <input type="range" class="track-weight" min="1" max="5" value="4">
             </div>
-        </section>
-      
+          </div>
+
+          <div class="track-card">
+            <i data-lucide="disc-3"></i>
+            <h3>Track 3</h3>
+
+            <select class="track-select">
+              <option value="">Choose a song...</option>
+              <option value="I'll Be Back!">I'll Be Back! - By: Rilès</option>
+              <option value="Island In The Sun">Island In The Sun - By: Weezer</option>
+            </select>
+
+            <div class="slider-container">
+              <label>
+                <i data-lucide="sliders-horizontal"></i>
+                Love Rating: <span class="weight-val">3</span>
+              </label>
+              <input type="range" class="track-weight" min="1" max="5" value="3">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="step-section">
+        <h2>Step 2: Generate Recommendations</h2>
+        <button class="btn-submit" id="generate-btn">
+          <i data-lucide="sparkles"></i>
+          Generate Best Vibe Matches
+        </button>
+      </section>
+
+      <section class="loading-container" id="loader" style="display: none;">
+        <i data-lucide="disc-3" class="spinning-icon"></i>
+        <p>Generating track list...</p>
+      </section>
+
+      <section class="results-container" id="results" style="display: none;">
+        <h2>Your Curated Matches</h2>
+        <div class="results-grid" id="results-grid">
+          
+        </div>
+      </section>
     </div>
 
-
-    
-
     <script src="https://unpkg.com/lucide@latest"></script>
-     <script>
-        lucide.createIcons();
+    <script>
+      lucide.createIcons();
 
-        const generateBtn = document.getElementById('generate-btn');
-        const loader = document.getElementById('loader');
-        const results = document.getElementById('results');
+      const generateBtn = document.getElementById('generate-btn');
+      const loader = document.getElementById('loader');
+      const results = document.getElementById('results');
+      const resultsGrid = document.getElementById('results-grid');
 
+      // used to update range slider text dynamically when moved (very annoying to figure out)
+      document.querySelectorAll('.track-card').forEach(card => {
+        const slider = card.querySelector('.track-weight');
+        const valSpan = card.querySelector('.weight-val');
+        if (slider && valSpan) {
+          slider.addEventListener('input', (e) => {
+            valSpan.textContent = e.target.value;
+          });
+        }
+      });
 
-        generateBtn.addEventListener('click',async ()=>{
-          loader.style.display = 'flex';
+      function renderRecommendations(songs) {
+        resultsGrid.innerHTML = '';
 
-          results.style.display = 'none';
-
-          try {
-            const response = await fetch('http://127.0.0.1:5000/api/recommend', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        
-                        tracks: ["Island In The Sun", "Say It Ain't So"],
-                        weights: [5, 4]
-                    })
-                });
-
-                const data = await response.json();
-                console.log("Data returned from Flask server:", data);
-
-                
-                loader.style.display = 'none';
-                results.style.display = 'block';
-
-          }catch(error){
-            console.error("Could not connect to Flask:", error);
-            loader.style.display = 'none';
-            alert("Error connecting to Python backend! Is app.py running?");
-          }
-
+        songs.forEach((song) => {
+          const cardHTML = `
+            <div class="rec-card">
+              <div class="track-info">
+                <strong class="track-name">${song.title}</strong>
+                <div class="meta-row">
+                  <span class="artist-name">
+                    <i data-lucide="user"></i> ${song.artist}
+                  </span>
+                  <span class="album-name">
+                    <i data-lucide="library"></i> ${song.album}
+                  </span>
+                  <span class="duration-text">
+                    <i data-lucide="clock"></i> ${song.duration}
+                  </span>
+                </div>
+              </div>
+              <div class="genre-wrapper">
+                <i data-lucide="tag"></i>
+                <span class="genre-tag">${song.genre}</span>
+              </div>
+            </div>
+          `;
+          resultsGrid.innerHTML += cardHTML;
         });
+
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      }
+
+      generateBtn.addEventListener('click', async () => {
+        //i'll use this to collect user-selected tracks and ratings from dropdowns/sliders
+
+        
+        const selectedTracks = [];
+        const selectedWeights = [];
+
+        document.querySelectorAll('.track-card').forEach(card => {
+          const trackVal = card.querySelector('.track-select').value;
+          const weightVal = parseFloat(card.querySelector('.track-weight').value);
+          
+          if (trackVal) {
+            selectedTracks.push(trackVal);
+            selectedWeights.push(weightVal);
+          }
+        });
+
+        if (selectedTracks.length === 0) {
+          alert("Please pick at least one song from the dropdowns!");
+          return;
+        }
+
+        loader.style.display = 'flex';
+        results.style.display = 'none';
+
+        try {
+          const response = await fetch('http://127.0.0.1:5000/api/recommend', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              tracks: selectedTracks,
+              weights: selectedWeights
+            })
+          });
+
+          const data = await response.json();
+          console.log("Data returned from Flask server:", data);
+
+          if (data.success && data.results && data.results.length > 0) {
+            renderRecommendations(data.results);
+            loader.style.display = 'none';
+            results.style.display = 'block';
+          } else {
+            alert(data.message || "No recommendations found for those tracks!");
+            loader.style.display = 'none';
+          }
+        } catch (error) {
+          console.error("Could not connect to Flask:", error);
+          loader.style.display = 'none';
+          alert("Error connecting to Python backend! Is app.py running?");
+        }
+      });
     </script>
   </body>
 </html>
