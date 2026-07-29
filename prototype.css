@@ -54,22 +54,23 @@ h2{
     font-size: 1.1rem;
 }
 
-.step-section{
+.step-section {
     margin-bottom: 3.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    
+    width: 100%; 
 }
 
-.selector-grid{
+.selector-grid {
     display: grid;
     grid-template-columns: 1fr;
+    max-width: 850px;
+    width: 100%; 
     gap: 1.25rem;
 }
 
-.track-card{
+.track-card {
     background: #141b2d;
     border: 1px solid #222f47;
     border-radius: 14px;
@@ -79,7 +80,19 @@ h2{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.track-input, .track-select {
+    flex: 1; /* Automatically expands to take ALL available empty space */
+    min-width: 0; /* Lets text input flex freely without getting stuck */
+    padding: 0.65rem 0.9rem;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
 }
 
 .track-card h3 {

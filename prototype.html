@@ -11,23 +11,26 @@
       <header>
         <i data-lucide="music-4"></i>
         <h1>Musical Insights</h1>
-        <p class="subtitle">UI prototype</p>
+        <p class="subtitle">Interactive Music Recommender</p>
       </header>
       
       <section class="step-section">
         <h2>Step 1: Define your song Profile</h2>
 
+
+        <datalist id="song-suggestions"></datalist>
+
         <div class="selector-grid">
           <div class="track-card">
             <i data-lucide="disc-3"></i>
             <h3>Track 1</h3>
-
-            <select class="track-select">
-              <option value="">Choose a song...</option>
-              <option value="I'll Be Back!">I'll Be Back! - By: Rilès</option>
-              <option value="Island In The Sun" selected>Island In The Sun - By: Weezer</option>
-            </select>
-
+            <input 
+              type="text" 
+              class="track-input track-select" 
+              list="song-suggestions" 
+              placeholder="Search a song..." 
+              value="Island In The Sun"
+            />
             <div class="slider-container">
               <label>
                 <i data-lucide="sliders-horizontal"></i>
@@ -40,13 +43,13 @@
           <div class="track-card">
             <i data-lucide="disc-3"></i>
             <h3>Track 2</h3>
-
-            <select class="track-select">
-              <option value="">Choose a song...</option>
-              <option value="Say It Ain't So" selected>Say It Ain't So - By: Weezer</option>
-              <option value="Island In The Sun">Island In The Sun - By: Weezer</option>
-            </select>
-
+            <input 
+              type="text" 
+              class="track-input track-select" 
+              list="song-suggestions" 
+              placeholder="Search a song..." 
+              value="Say It Ain't So"
+            />
             <div class="slider-container">
               <label>
                 <i data-lucide="sliders-horizontal"></i>
@@ -59,13 +62,13 @@
           <div class="track-card">
             <i data-lucide="disc-3"></i>
             <h3>Track 3</h3>
-
-            <select class="track-select">
-              <option value="">Choose a song...</option>
-              <option value="I'll Be Back!">I'll Be Back! - By: Rilès</option>
-              <option value="Island In The Sun">Island In The Sun - By: Weezer</option>
-            </select>
-
+            <input 
+              type="text" 
+              class="track-input track-select" 
+              list="song-suggestions" 
+              placeholder="Search a song..." 
+              placeholder="Optional track..."
+            />
             <div class="slider-container">
               <label>
                 <i data-lucide="sliders-horizontal"></i>
@@ -87,14 +90,12 @@
 
       <section class="loading-container" id="loader" style="display: none;">
         <i data-lucide="disc-3" class="spinning-icon"></i>
-        <p>Generating track list...</p>
+        <p>Calculating vector similarity across 81,000+ tracks...</p>
       </section>
 
       <section class="results-container" id="results" style="display: none;">
         <h2>Your Curated Matches</h2>
-        <div class="results-grid" id="results-grid">
-          
-        </div>
+        <div class="results-grid" id="results-grid"></div>
       </section>
     </div>
 
@@ -106,8 +107,40 @@
       const loader = document.getElementById('loader');
       const results = document.getElementById('results');
       const resultsGrid = document.getElementById('results-grid');
+      const datalist = document.getElementById('song-suggestions');
 
-      // used to update range slider text dynamically when moved (very annoying to figure out)
+    
+      document.querySelectorAll('.track-input').forEach(input => {
+        let debounceTimer;
+        input.addEventListener('input', (e) => {
+          clearTimeout(debounceTimer);
+          const query = e.target.value.trim();
+          
+          if (query.length < 2) return;
+
+          debounceTimer = setTimeout(async () => {
+            try {
+              const res = await fetch(`http://127.0.0.1:5000/api/search?q=${encodeURIComponent(query)}`);
+              const suggestions = await res.json();
+              
+              console.log("Suggestions returned from Flask:", suggestions); // Debug log
+              
+              datalist.innerHTML = ''; // Clear previous options
+              
+              suggestions.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.title; // What gets typed into input
+                option.label = `${item.title} — ${item.artist}`;
+                datalist.appendChild(option);
+              });
+            } catch (err) {
+              console.error("Search fetch failed:", err);
+            }
+          }, 250);
+        });
+      });
+
+      //  slider number updates
       document.querySelectorAll('.track-card').forEach(card => {
         const slider = card.querySelector('.track-weight');
         const valSpan = card.querySelector('.weight-val');
@@ -118,10 +151,11 @@
         }
       });
 
+      //  Render Recommendation Cards
       function renderRecommendations(songs) {
         resultsGrid.innerHTML = '';
 
-        songs.forEach((song) => {
+        songs.forEach((song, index) => {
           const cardHTML = `
             <div class="rec-card">
               <div class="track-info">
@@ -153,14 +187,11 @@
       }
 
       generateBtn.addEventListener('click', async () => {
-        //i'll use this to collect user-selected tracks and ratings from dropdowns/sliders
-
-        
         const selectedTracks = [];
         const selectedWeights = [];
 
         document.querySelectorAll('.track-card').forEach(card => {
-          const trackVal = card.querySelector('.track-select').value;
+          const trackVal = card.querySelector('.track-input').value.trim();
           const weightVal = parseFloat(card.querySelector('.track-weight').value);
           
           if (trackVal) {
@@ -170,7 +201,7 @@
         });
 
         if (selectedTracks.length === 0) {
-          alert("Please pick at least one song from the dropdowns!");
+          alert("Please enter or search for at least one track!");
           return;
         }
 
@@ -180,9 +211,7 @@
         try {
           const response = await fetch('http://127.0.0.1:5000/api/recommend', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               tracks: selectedTracks,
               weights: selectedWeights
@@ -190,14 +219,13 @@
           });
 
           const data = await response.json();
-          console.log("Data returned from Flask server:", data);
 
           if (data.success && data.results && data.results.length > 0) {
             renderRecommendations(data.results);
             loader.style.display = 'none';
             results.style.display = 'block';
           } else {
-            alert(data.message || "No recommendations found for those tracks!");
+            alert(data.message || "Track not found in database. Try picking a track from the search suggestions!");
             loader.style.display = 'none';
           }
         } catch (error) {

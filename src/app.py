@@ -32,6 +32,27 @@ def format_duration(ms):
     except (ValueError, TypeError):
         return "3:45"  
     
+
+@app.route('/api/search', methods=['GET'])
+def searchTracks():
+    query = request.args.get('q', '').strip().lower()
+    if not query or len(query) < 2:
+        return jsonify([])
+
+    matches = df_original[df_original['track_name'].str.lower().str.contains(query, na=False)]
+
+    unique_matches = matches[['track_name', 'artists']].drop_duplicates(subset=['track_name']).head(10)
+
+    results = []
+    #clean_results = []
+
+    for _, row in unique_matches.iterrows():
+        results.append({
+            "title":row['track_name'],
+            "artist":row['artists']
+        })
+    return jsonify(results)
+
 @app.route('/api/recommend', methods=['POST'])
 def recommend():
     try:
