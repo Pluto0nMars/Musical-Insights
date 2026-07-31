@@ -29,14 +29,14 @@
               class="track-input track-select" 
               list="song-suggestions" 
               placeholder="Search a song..." 
-              value="Island In The Sun"
+              placeholder="Optional track..."
             />
             <div class="slider-container">
               <label>
                 <i data-lucide="sliders-horizontal"></i>
-                Love Rating: <span class="weight-val">5</span>
+                Love Rating: <span class="weight-val">3</span>
               </label>
-              <input type="range" class="track-weight" min="1" max="5" value="5">
+              <input type="range" class="track-weight" min="1" max="5" value="3">
             </div>
           </div>
 
@@ -48,14 +48,14 @@
               class="track-input track-select" 
               list="song-suggestions" 
               placeholder="Search a song..." 
-              value="Say It Ain't So"
+              placeholder="Optional track..."
             />
             <div class="slider-container">
               <label>
                 <i data-lucide="sliders-horizontal"></i>
-                Love Rating: <span class="weight-val">4</span>
+                Love Rating: <span class="weight-val">3</span>
               </label>
-              <input type="range" class="track-weight" min="1" max="5" value="4">
+              <input type="range" class="track-weight" min="1" max="5" value="3">
             </div>
           </div>
 
@@ -150,6 +150,7 @@
           });
         }
       });
+      
 
       //  Render Recommendation Cards
       function renderRecommendations(songs) {
