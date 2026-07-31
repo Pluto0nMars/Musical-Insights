@@ -1,4 +1,6 @@
 # Musical Insights — Interactive Music Recommender
+
+## Overview
 ---
 I decided to make a music recommendation application since i listen to music way too much whenever I'm doing any task. It gave me the chance 
 to combine come of my computer science related interests and chance to find new songs that I most likely would not have discovered otherwise.
