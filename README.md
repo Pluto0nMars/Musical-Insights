@@ -9,7 +9,7 @@ The application can be ran locally through VS code or an alternative IDE.
 
 
 ## How it Works
-Here's the the data flow of the web application
+Here's the the data flow of the web application:
 <img width="1248" height="327" alt="image" src="https://github.com/user-attachments/assets/16858594-ba75-4382-9e20-532cdd9f399a" />
 
 ## Curated Matches
@@ -29,7 +29,8 @@ The recommended songs are from artists that are similar in genre at the very lea
 <img width="862" height="580" alt="image" src="https://github.com/user-attachments/assets/943fe1ad-0ca2-4af3-bafc-29160c65635c" />
 
 
-If a song entered in the one of the track searches is not in the data base then user receives an alert.
+If a song entered in the one of the track searches is not in the data base, then user receives an alert:
+
 <img width="348" height="143" alt="image" src="https://github.com/user-attachments/assets/7071b521-ec0b-4da0-9673-0fb47dbba481" />
 
 
