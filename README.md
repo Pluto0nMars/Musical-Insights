@@ -35,7 +35,7 @@ If a song entered in the one of the track searches is not in the data base, then
 
 
 ## Experience
-I chose to take on the project because it would be chance to use technologies that I was not too familiar with. I had used HTML and CSS in the past, but it was primarily for my personal portfolio website. The only experience I had with Javascript was in high school for an AP Computer Science class, but once again I had never actually used it for a somewhat long term project. 
+I chose to take on the project because it was a chance to use technologies that I was not too familiar with. I've used HTML and CSS in the past, but it was primarily for my personal portfolio website. The only experience I had with JavaScript was in high school for an AP Computer Science class, but once again I had never actually used it for a somewhat long term project. 
 
 For the Database, I really wanted to use Spotify's song API for developers, but it was only available for premium users of Spotify. I decided to settle for a local database that I downloaded from Kaggle that was used in similar song data analysis projects. The downside of this is that I have fewer songs to pool from when searching and recommending songs for users. In the future I'll probbaly use some sort of song API.
 
