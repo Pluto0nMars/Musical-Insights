@@ -56,5 +56,18 @@ Right now, the recommendation engine uses a fixed math formula to find similar t
 * The user interface could of more instructions for an even easier first time use case
 
 
+---
+### How to run:
+
+* In your terminal enter the following commands
+
+```bash
+cd src
+python app.py
+```
+
+* Then hit the Go live button in the right corner of your screen
+<img width="73" height="39" alt="image" src="https://github.com/user-attachments/assets/1d0a5fa6-114a-4986-a4f3-e4eb44521cc6" />
+
 
 
