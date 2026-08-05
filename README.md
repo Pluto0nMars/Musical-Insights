@@ -66,7 +66,7 @@ cd src
 python app.py
 ```
 
-* Then hit the Go live button in the right corner of your screen
+* Then hit the "Go live" button in the bottom right corner of your screen (Assuming You're in VS code)
 <img width="73" height="39" alt="image" src="https://github.com/user-attachments/assets/1d0a5fa6-114a-4986-a4f3-e4eb44521cc6" />
 
 
